@@ -15,7 +15,7 @@ INSERT INTO animals (name, date_of_birth, weight_kg, neutered, escape_attempts) 
 INSERT INTO animals (name, date_of_birth, weight_kg, neutered, escape_attempts) VALUES('Blossom', '1998-10-13', '17', 'true', '3');
 INSERT INTO animals (name, date_of_birth, weight_kg, neutered, escape_attempts) VALUES('Ditto', '2022-05-14', '22', 'true', '4');
 
--- DAY 3
+-- DAY THREE
 INSERT INTO owners(full_name, age) 
 VALUES
     ('Sam Smith', '34'),
