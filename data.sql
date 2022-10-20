@@ -72,3 +72,102 @@ WHERE name IN ('Charmander', 'Squirtle', 'Blossom');
 UPDATE animals
 SET owner_id = (SELECT id FROM owners WHERE full_name LIKE 'Dean Winchester') 
 WHERE name IN ('Angemon', 'Boarmon');
+
+-- DAY FOUR
+INSERT INTO vets (name, age, date_of_graduation)
+VALUES
+    ('Vet William Tatcher', '45', '2020-04-23'),
+    ('Vet Maisy Smith', '26', '2019-01-17'),
+    ('Vet Stephanie Mendez', '64', '1981-05-04'),
+    ('Vet Jack Harkness', '38', '2008-06-08');
+
+INSERT INTO specialization (vets_id, species_id)
+VALUES
+    ('1', '1'),
+    ('3', '2'),
+    ('3', '1'),
+    ('4', '2');
+
+INSERT INTO visits (animals_id, vets_id, date_of_visit)
+VALUES
+    ('1', '1', '2020-05-24'),
+    ('1', '3', '2020-07-22'),
+    ('2', '4',  '2021-02-02'),
+    ('3', '2',  '2020-01-05'),
+    ('3', '2',  '2020-03-08'),
+    ('3', '2',  '2020-05-14'),
+    ('4', '3',  '2021-05-04'),
+    ('5', '4',  '2021-02-24'),
+    ('6', '2',  '2019-12-21'),
+    ('6', '1',  '2020-08-10'),
+    ('6', '2',  '2021-04-07'),
+    ('7', '3',  '2019-09-29'),
+    ('8', '4',  '2020-10-03'),
+    ('8', '4',  '2020-11-04'),
+    ('9', '2',  '2019-01-24'),
+    ('9', '2',  '2019-05-15'),
+    ('9', '2',  '2020-02-27'),
+    ('9', '2',  '2020-08-03'),
+    ('10', '3',  '2020-05-24'),
+    ('10', '1',  '2021-01-11');
+
+
+SELECT vets.name, animals.name, visits.date_of_visit FROM animals
+JOIN visits ON animals.id = visits.animals_id
+JOIN vets ON vets.id = visits.vets_id
+WHERE vets.name = 'Vet William Tatcher' ORDER BY date_of_visit DESC LIMIT 1;
+
+SELECT COUNT(DISTINCT (animals.name)), vets.name FROM animals
+JOIN visits ON animals.id = visits.animals_id
+JOIN vets ON vets.id = visits.vets_id
+WHERE vets.name LIKE 'Vet Stephanie Mendez'
+GROUP BY vets.name;
+
+SELECT vets.name, species.name FROM vets
+LEFT JOIN species ON vets.id = species.id;
+
+SELECT animals.name, vets.name, visits.date_of_visit FROM animals
+JOIN visits ON animals.id = visits.animals_id
+JOIN vets ON vets.id = visits.vets_id
+WHERE vets.name = 'Vet Stephanie Mendez' AND date_of_visit BETWEEN DATE '2020-04-01' AND '2020-08-30';
+
+
+SELECT COUNT(animals.name), animals.name FROM animals
+JOIN visits ON animals.id = visits.animals_id
+JOIN vets ON vets.id = visits.vets_id
+GROUP BY animals.name
+ORDER BY count DESC LIMIT 1;
+
+SELECT animals.name, visits.date_of_visit FROM animals
+JOIN visits ON animals.id = visits.animals_id
+ORDER BY visits.date_of_visit LIMIT 1;
+
+SELECT animals.*, vets.*, visits.date_of_visit FROM animals
+JOIN visits ON animals.id = visits.animals_id
+JOIN vets ON vets.id = visits.vets_id
+ORDER BY date_of_visit DESC LIMIT 1;
+
+SELECT vets.name, COUNT(vets.name) FROM vets
+LEFT JOIN specialization ON specialization.vets_id = vets.id
+LEFT JOIN visits ON vets.id = visits.vets_id
+LEFT JOIN species ON species.id = specialization.species_id
+GROUP BY vets.name;
+
+SELECT COUNT(*) FROM visits
+JOIN animals ON animals.id = visits.animals_id
+JOIN vets ON vets.id = visits.vets_id 
+LEFT JOIN specialization ON specialization.vets_id = vets.id 
+WHERE specialization.species_id != animals.species_id OR specialization.species_id is NULL;
+
+SELECT species.name, count(*) FROM visits 
+JOIN animals ON animals.id = visits.animals_id
+JOIN species ON species.id = animals.species_id
+JOIN vets ON vets.id = visits.vets_id
+WHERE vets_id=2
+GROUP BY species.name LIMIT 1;
+
+
+
+
+
+
