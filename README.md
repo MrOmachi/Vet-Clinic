@@ -5,7 +5,9 @@
 
 ## Database Schema Diagram
 
-![Schema_diagram](<./images/Other%20(1).png>)
+This is the scheme Diagram for the database showing the schema for all the tables in the database.
+
+![Schema_diagram for Vet Clinic database](<./images/Other%20(1).png>)
 
 ## Getting Started
 
