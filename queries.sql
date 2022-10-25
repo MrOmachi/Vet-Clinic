@@ -140,3 +140,10 @@ JOIN species ON species.id = animals.species_id
 JOIN vets ON vets.id = visits.vets_id
 WHERE vets_id=2
 GROUP BY species.name LIMIT 1;
+
+--week2 day1
+
+SELECT COUNT(*) FROM visits where animals_id = 4;
+SELECT * FROM visits where vets_id = 2;
+SELECT * FROM owners where email = 'owner_18327@mail.com';
+
